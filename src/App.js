@@ -1,7 +1,7 @@
 import React from 'react';
 import {GlobalStyle} from "./style";
 import store from './store'
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import {Provider} from 'react-redux'
 import Header from './common/header'
 import Home from './pages/home'

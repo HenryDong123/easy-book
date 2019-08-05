@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {PureComponent} from 'react'
 import {connect} from 'react-redux'
 import {
 		HeaderWrapper,
@@ -17,8 +17,10 @@ import {
 } from './style'
 import {CSSTransition} from 'react-transition-group'
 import {actionCreators} from './store'
+import { actionCreators as loginActionCreators } from '../../pages/login/store'
+import { Link } from "react-router-dom";
 
-class Header extends Component {
+class Header extends PureComponent {
 		getListArea() {
 				const {focused, hotList, page, mouseIn, handleMouseEnter, handleMouseLeave, handleChangeList, totalPage} = this.props
 				const jsList = hotList.toJS()
@@ -53,14 +55,19 @@ class Header extends Component {
 		}
 
 		render() {
-				const {focused, handleInputBlur, handleInputFocus, hotList} = this.props
+				const {focused, handleInputBlur, handleInputFocus, hotList, login, logout} = this.props
 				return (
 						<HeaderWrapper>
-								<Logo href='/'/>
+								<Link to='/'>
+										<Logo/>
+								</Link>
 								<Nav>
 										<NavItem className='left active'>首页</NavItem>
 										<NavItem className='left'>下载App</NavItem>
-										<NavItem className='right'>登陆</NavItem>
+										{
+												login ? <NavItem onClick={logout} className='right'>注销</NavItem> :
+																<Link to='/login'><NavItem className='right'>登录</NavItem></Link>
+										}
 										<NavItem className='right'>
 												<i className="iconfont icon-Aa"/>
 										</NavItem>
@@ -82,10 +89,12 @@ class Header extends Component {
 										</SearchWrapper>
 								</Nav>
 								<Addition>
-										<Button className='writting'>
-												<i className="iconfont icon-bi"></i>
-												写文章
-										</Button>
+										<Link to='/write'>
+												<Button className='writting'>
+														<i className="iconfont icon-bi"></i>
+														写文章
+												</Button>
+										</Link>
 										<Button className='reg'>注册</Button>
 								</Addition>
 						</HeaderWrapper>
@@ -98,7 +107,8 @@ const mapStateToProps = (state) => ({
 		mouseIn: state.getIn(['header', 'mouseIn']),
 		hotList: state.getIn(['header', 'hotList']),
 		page: state.getIn(['header', 'page']),
-		totalPage: state.getIn(['header', 'totalPage'])
+		totalPage: state.getIn(['header', 'totalPage']),
+		login: state.getIn(['login', 'login'])
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -128,6 +138,9 @@ const mapDispatchToProps = (dispatch) => ({
 				}else {
 						dispatch(actionCreators.onListChange(1))
 				}
+		},
+		logout() {
+				dispatch(loginActionCreators.logout())
 		}
 })
 

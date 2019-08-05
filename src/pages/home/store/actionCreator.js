@@ -26,13 +26,18 @@ export const getHomeInfo = () => {
 }
 export const getMoreList = (page) => {
 		return (dispatch) => {
-				axios.get('/api/homeList.json',{
-						params:{
+				axios.get('/api/homeList.json', {
+						params: {
 								page
 						}
 				}).then(res => {
 						console.log(res.data.data)
-						dispatch(addHomeList(res.data.data, page+1))
+						dispatch(addHomeList(res.data.data, page + 1))
 				})
 		}
 }
+export const changeBackTop = (val) => ({
+				type: constants.CHANGE_BACK_TOP,
+				val
+		}
+)

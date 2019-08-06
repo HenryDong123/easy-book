@@ -3,7 +3,6 @@ import {Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {LoginWrapper, LoginBox, Input, Button} from './style';
 import {actionCreators} from './store';
-
 class Login extends PureComponent {
 		render() {
 				const {loginStatus} = this.props
@@ -37,4 +36,4 @@ const mapDispatch = (dispatch) => ({
 				dispatch(actionCreators.login(accountElem.value, passwordElem.value))
 		}
 })
-export default connect(mapState, mapDispatch)(Login);
+export default connect(mapState, mapDispatch)(Login)

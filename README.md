@@ -1,5 +1,5 @@
-###react练手项目
-####技术栈：
+### react练手项目<br/>
+#### 技术栈：
 1. react 
 2. redux
 3. react-redux 
